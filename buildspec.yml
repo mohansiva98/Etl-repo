@@ -6,9 +6,8 @@ phases:
       python: 3.9
   build:
     commands:
-      - echo "Packaging PySpark job..."
-      - zip -r etl_job.zip etl_job.py
-
+      - echo "Uploading Spark job to S3"
+      - aws s3 cp etl_job.py s3://etl-output-bucket-mhn/jobs/etl_job.py
 artifacts:
   files:
-    - etl_job.zip
+    - lambda_function.py
