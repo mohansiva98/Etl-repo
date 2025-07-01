@@ -1,9 +1,17 @@
 from pyspark.sql import SparkSession
 
-spark = SparkSession.builder.appName("ETLJob").getOrCreate()
+input_path = "s3://etl-input-bucket-mhn/sample.csv"
+output_path = "s3://etl-output-bucket-mhn/processed-data/"
 
-df = spark.read.csv("s3://etl-raw-data-mohan/sample.csv", header=True, inferSchema=True)
+spark = SparkSession.builder.appName("SimpleETL").getOrCreate()
 
+# Read CSV
+df = spark.read.csv(input_path, header=True, inferSchema=True)
+
+# Basic transformation (remove nulls)
 df_clean = df.dropna()
 
-df_clean.write.csv("s3://etl-processed-data-mohan/cleaned", header=True)
+# Save to output
+df_clean.write.mode("overwrite").parquet(output_path)
+
+spark.stop()
