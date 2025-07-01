@@ -1,0 +1,3 @@
+{
+  "script_s3_path": "s3://etl-raw-data-yourname/scripts/etl_job.py"
+}
