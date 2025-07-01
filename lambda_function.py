@@ -3,7 +3,7 @@ import time
 
 emr = boto3.client('emr-serverless')
 app_id = '00ftn3gk35e5md09'  # Replace with your actual Application ID
-s3_bucket = 'etl-emr-input-bucket-yourname'
+s3_bucket = 'etl-emr-input-bucket-mhn'
 job_role = 'arn:aws:iam::375046931023:role/EMRServerlessLambdaFullAccess'
 
 def lambda_handler(event, context):
