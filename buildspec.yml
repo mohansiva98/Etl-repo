@@ -1,11 +1,14 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      python: 3.9
   build:
     commands:
-      - echo "Validating Spark script..."
-      - python3 -m py_compile etl_job.py
-      - echo "Invoking Lambda to trigger EMR step..."
-      - aws lambda invoke --function-name trigger-emr --payload file://payload.json response.json
+      - echo "Packaging PySpark job..."
+      - zip -r etl_job.zip etl_job.py
+
 artifacts:
-  files: []
+  files:
+    - etl_job.zip
